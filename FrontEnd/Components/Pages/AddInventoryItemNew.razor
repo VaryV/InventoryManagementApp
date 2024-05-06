@@ -1,0 +1,88 @@
+﻿@page "/add-new-inventory-item"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+<PageTitle>Add New Inventory Item</PageTitle>
+
+<h1>Enter Product Details</h1>
+<Toast Message="Fields cannot be empty" Level="Toast.ToastLevel.Warning" Visible="IsFToastVisible" />
+<Toast Message="Added Customer!" Level="Toast.ToastLevel.Success" Visible="IsSToastVisible" />
+<p></p>
+<form>
+  <label>Name:</label><br>
+  <input type="text" @bind="name" id="fname" name="fname"><br>
+  <label>Description:</label><br>
+  <input type="text" @bind="desc" id="phone" name="phone"><br>
+  <label>Unit Price:</label><br>
+  <input type="text" @bind="UnitPrice" id="mail" name="mail"><br>
+  <label>Quantity:</label><br>
+  <input type="text" @bind="Sqty" id="address" name="address"><br><br>
+  <label>Discount:</label><br>
+  <input type="text" @bind="disc" id="address" name="address"><br><br>
+</form>
+<button @onclick="NavigateToRoute">Back</button>
+<button @onclick="AddNewItem">Add New Item</button>
+
+@code {
+    private bool IsSToastVisible { get; set; } = false;
+    private bool IsFToastVisible { get; set; } = false;
+    private void ShowFToast()
+    {
+        IsFToastVisible = true;
+        // Optionally, set a timeout to hide the toast after a certain duration
+        Task.Delay(3000).ContinueWith(_ => IsFToastVisible = false);
+    }
+    private void ShowToast()
+    {
+        IsSToastVisible = true;
+        // Optionally, set a timeout to hide the toast after a certain duration
+        Task.Delay(3000).ContinueWith(_ => IsSToastVisible = false);
+    }
+    private string? name;
+    private string? desc;
+    private Decimal UnitPrice;
+    private int Sqty;
+    private Decimal disc;
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo("/inventory");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    private async Task AddNewItem()
+    {
+        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(desc) || UnitPrice <= 0 || Sqty <= 0 || disc.Equals(null)){
+            ShowFToast();
+        }
+        else{
+            if (!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(desc) || UnitPrice > 0 || Sqty > 0 || !disc.Equals(null)){
+                Product cust = new Product();
+                cust.Id = 1;
+                cust.name = name;
+                cust.desc = desc;
+                cust.uprice = UnitPrice;
+                cust.qty = Sqty;
+                cust.discount = disc;
+                Console.WriteLine(cust.name + cust.qty);
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("http://localhost:5038/add_prod", cust);
+                Console.WriteLine(response);
+                ShowToast();
+                NavigateToRoute();
+            }
+        }
+    }
+
+    public class Product
+    {
+        public ulong Id { get; set; }
+        public string? name { get; set; }
+        public string? desc { get; set; }
+        public Decimal uprice { get; set; }
+        public int qty { get; set; }
+        public Decimal discount { get; set; }
+    }
+}

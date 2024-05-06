@@ -1,0 +1,90 @@
+﻿@page "/inventory"
+@rendermode InteractiveServer
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+
+<style>
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+</style>
+
+<PageTitle>Inventory</PageTitle>
+
+<h1>Product List</h1>
+
+<p></p>
+
+@if (products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table" width="80%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>NAME </th>
+                <th>DESC </th>
+                <th>UNIT PRICE </th>
+                <th>STOCK QUANTITY </th>
+                <th>DISCOUNT </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td><button @onclick="() => DeleteProduct(product.Id)">Delete</button></td>
+                    <td>@product.Id</td>
+                    <td>@product.name</td>
+                    <td>@product.desc</td>
+                    <td>@product.uprice</td>
+                    <td>@product.qty</td>
+                    <td>@product.discount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button @onclick="NavigateToRoute">Add a new Inventory Item</button>
+
+}
+
+@code {
+    private string? searchTerm;
+    private Product[]? products;
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo("/add-new-inventory-item");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await ListProd();
+    }
+
+    private async Task ListProd()
+    {
+        products = [];
+        products = await httpClient.GetFromJsonAsync<Product[]>("http://localhost:5038/list_prods/");
+    }
+
+    private async Task DeleteProduct(ulong id)
+    {
+        Console.WriteLine($"http://localhost:5038/del_prod/{id}");
+        HttpResponseMessage response = await httpClient.DeleteAsync($"http://localhost:5038/del_prod/{id}");
+        await ListProd();
+    }
+
+    public class Product
+    {
+        public ulong Id { get; set; }
+        public string? name { get; set; }
+        public string? desc { get; set; }
+        public Decimal uprice { get; set; }
+        public int qty { get; set; }
+        public Decimal discount { get; set; }
+    }
+}

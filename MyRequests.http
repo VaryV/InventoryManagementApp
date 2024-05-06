@@ -1,0 +1,50 @@
+### CUSTOMER MANAGEMENT
+
+GET http://localhost:5038/list_cust/all
+
+###
+
+POST http://localhost:5038/add_cust HTTP/1.1
+Content-Type: application/json
+
+{
+    "Id": "1",
+    "name": "Harvey Specter",
+    "phone": "2347659081",
+    "mail": "Caringmakesyouweak@donna.in",
+    "address": "Pearson Specter, Manhattan"
+}
+
+###
+
+DELETE http://localhost:5038/del_cust/3 HTTP/1.1
+
+###
+
+
+
+GET http://localhost:5038/list_emp
+
+### PRODUCT MANAGEMENT
+
+GET http://localhost:5038/list_prods
+
+###
+POST http://localhost:5038/inflow/12/3
+###
+
+POST http://localhost:5038/add_prod HTTP/1.1
+Content-Type: application/json
+
+{
+    "Id": "1",
+    "name": "TWS Earbuds",
+    "desc": "Mobile, Good battery life",
+    "price": "20.99",
+    "qty": "80",
+    "discount": "15"
+}
+
+###
+
+DELETE http://localhost:5038/del_prod/11 HTTP/1.1

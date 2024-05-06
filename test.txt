@@ -1,0 +1,19 @@
+using MySql.Data.MySqlClient;
+
+public class app{
+
+    public static async Task Main(string[] args){
+        string connectionString = "server=localhost;uid=root;pwd=;database=inventorymanagement";
+        MySqlConnection conn = new MySqlConnection();
+        conn.ConnectionString = connectionString;
+        conn.Open();
+        string query = "SELECT * FROM EMPLOYEES";
+        MySqlCommand cmd = new MySqlCommand(query, conn);
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while(reader.Read()){
+            Console.WriteLine("Employee ID: " + reader["EmpID"]);
+            Console.WriteLine("Employee Name: " + reader["EmpName"]);
+            Console.WriteLine("Employee Phone: " + reader["phone"]);
+        }
+    }
+}

@@ -1,0 +1,89 @@
+﻿@page "/add-customer"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+<style>
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+</style>
+
+<PageTitle>Add Customer</PageTitle>
+
+<h1>Customer List</h1>
+<Toast Message="Fields cannot be empty" Level="Toast.ToastLevel.Warning" Visible="IsFToastVisible" />
+<Toast Message="Added Customer!" Level="Toast.ToastLevel.Success" Visible="IsSToastVisible" />
+<p></p>
+<form>
+  <label>Name:</label><br>
+  <input type="text" @bind="name" id="fname" name="fname"><br>
+  <label>Phone:</label><br>
+  <input type="text" @bind="phone" id="phone" name="phone"><br>
+  <label>Mail:</label><br>
+  <input type="text" @bind="mail" id="mail" name="mail"><br>
+  <label>Address:</label><br>
+  <input type="text" @bind="address" id="address" name="address"><br><br>
+</form>
+<button @onclick="NavigateToRoute">Back</button>
+<button @onclick="AddCust">Add Customer</button>
+
+@code {
+    private bool IsSToastVisible { get; set; } = false;
+    private bool IsFToastVisible { get; set; } = false;
+    private void ShowFToast()
+    {
+        IsFToastVisible = true;
+        // Optionally, set a timeout to hide the toast after a certain duration
+        Task.Delay(3000).ContinueWith(_ => IsFToastVisible = false);
+    }
+    private void ShowToast()
+    {
+        IsSToastVisible = true;
+        // Optionally, set a timeout to hide the toast after a certain duration
+        Task.Delay(3000).ContinueWith(_ => IsSToastVisible = false);
+    }
+    private string? name;
+    private string? phone;
+    private string? mail;
+    private string? address;
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo("/customer");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        @* await ListCust(); *@
+    }
+
+    private async Task AddCust()
+    {
+        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(mail) || string.IsNullOrEmpty(address)){
+            ShowFToast();
+        }
+        else{
+            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(phone) && !string.IsNullOrEmpty(mail) && !string.IsNullOrEmpty(address)){
+                Cust cust = new Cust();
+                cust.Id = 1;
+                cust.name = name;
+                cust.phone = phone;
+                cust.mail = mail;
+                cust.address = address;
+                Console.WriteLine(cust.name + cust.phone);
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("http://localhost:5038/add_cust", cust);
+                Console.WriteLine(response);
+                ShowToast();
+                NavigateToRoute();
+            }
+        }
+    }
+
+    public class Cust
+    {
+        public ulong Id { get; set; }
+        public string? name { get; set; }
+        public string? phone { get; set; }
+        public string? mail { get; set; }
+        public string? address { get; set; }
+    }
+}

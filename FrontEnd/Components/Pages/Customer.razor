@@ -1,0 +1,95 @@
+﻿@page "/customer"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+<style>
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+</style>
+
+<PageTitle>Customer List</PageTitle>
+
+<h1>Customer List</h1>
+
+<p></p>
+
+@if (customers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <input placeholder="Search Phone..." @bind="searchTerm"/>
+    <button @onclick="ListCust">Search Phone</button>
+
+    <table class="table" width="80%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>NAME </th>
+                <th>PHONE </th>
+                <th>EMAIL</th>
+                <th>ADDRESS</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in customers)
+            {
+                <tr>
+                    <td><button @onclick="() => DeleteCustomer(customer.Id)">Delete</button></td>
+                    <td>@customer.Id</td>
+                    <td>@customer.name</td>
+                    <td>@customer.phone</td>
+                    <td>@customer.mail</td>
+                    <td>@customer.address</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button @onclick="NavigateToRoute">Add Customer</button>
+
+}
+
+@code {
+    private string? searchTerm;
+    private Cust[]? customers;
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo("/add-customer");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await ListCust();
+    }
+
+    private async Task ListCust()
+    {
+        if (string.IsNullOrEmpty(searchTerm) || searchTerm.Equals("all"))
+        {
+            customers = await httpClient.GetFromJsonAsync<Cust[]>("http://localhost:5038/list_cust/all");
+        }
+        else
+        {
+            customers = await httpClient.GetFromJsonAsync<Cust[]>($"http://localhost:5038/list_cust/{searchTerm}");
+        }
+    }
+
+    private async Task DeleteCustomer(ulong id)
+    {
+        Console.WriteLine($"http://localhost:5038/del_cust/{id}");
+        HttpResponseMessage response = await httpClient.DeleteAsync($"http://localhost:5038/del_cust/{id}");
+        await ListCust();
+    }
+
+    public class Cust
+    {
+        public ulong Id { get; set; }
+        public string? name { get; set; }
+        public string? phone { get; set; }
+        public string? mail { get; set; }
+        public string? address { get; set; }
+    }
+}
