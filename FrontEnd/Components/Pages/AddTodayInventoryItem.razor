@@ -1,0 +1,73 @@
+@page "/add-today-inventory-item"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+<PageTitle>Add New Inventory Item</PageTitle>
+
+<h1>Enter Product Details</h1>
+<Toast Message="Error has occured. Check fields properly" Level="Toast.ToastLevel.Warning" Visible="IsFToastVisible" />
+<Toast Message="Added Customer!" Level="Toast.ToastLevel.Success" Visible="IsSToastVisible" />
+<p></p>
+<form>
+  <label>ProductID:</label><br>
+  <input type="text" @bind="id" id="fname" name="fname"><br>
+  <label>Quantity:</label><br>
+  <input type="text" @bind="Sqty" id="address" name="address"><br><br>
+</form>
+<button @onclick="NavigateToRoute">Back</button>
+<button @onclick="AddNewItem">Add Procured Item</button>
+
+@code {
+    private bool IsSToastVisible { get; set; } = false;
+    private bool IsFToastVisible { get; set; } = false;
+    private void ShowFToast()
+    {
+        IsFToastVisible = true;
+        // Optionally, set a timeout to hide the toast after a certain duration
+        Task.Delay(3000).ContinueWith(_ => IsFToastVisible = false);
+    }
+    private void ShowToast()
+    {
+        IsSToastVisible = true;
+        // Optionally, set a timeout to hide the toast after a certain duration
+        Task.Delay(3000).ContinueWith(_ => IsSToastVisible = false);
+    }
+    private ulong id;
+    private int Sqty;
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo("/inflow");
+    }
+
+    private async Task AddNewItem()
+    {
+        if (id <= 0 || Sqty <= 0){
+            ShowFToast();
+        }
+        else{
+            if (id > 0 && Sqty > 0){
+                Product cust = new Product();
+                cust.Id = id;
+                cust.qty = Sqty;
+                Console.WriteLine(cust.Id + " " + cust.qty);
+                string res = "";
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync<string>($"http://localhost:5038/inflow/{id}/{Sqty}", res);
+                Console.WriteLine("~~~~~~~~~~ " + res + " ~~~~~~~~~~");
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    ShowFToast();
+                else{
+                    ShowToast();
+                    NavigateToRoute();
+                }
+            }
+        }
+    }
+
+    public class Product
+    {
+        public ulong Id { get; set; }
+        public int qty { get; set; }
+    }
+}

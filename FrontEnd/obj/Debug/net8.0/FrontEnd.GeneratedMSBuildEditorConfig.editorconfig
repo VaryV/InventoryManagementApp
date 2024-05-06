@@ -30,6 +30,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRJbnZlbnRvcnlJdGVtTmV3LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/AddTodayInventoryItem.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRUb2RheUludmVudG9yeUl0ZW0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Customer.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDdXN0b21lci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -40,6 +44,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Inflow.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbmZsb3cucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Inventory.razor]

@@ -48,3 +48,4 @@ D:\KLA\C#.NET\InventoryManagementApp\BackEnd\bin\Debug\net8.0\runtimes\win\lib\n
 D:\KLA\C#.NET\InventoryManagementApp\BackEnd\bin\Debug\net8.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 D:\KLA\C#.NET\InventoryManagementApp\BackEnd\obj\Debug\net8.0\BackEnd.csproj.AssemblyReference.cache
 D:\KLA\C#.NET\InventoryManagementApp\BackEnd\obj\Debug\net8.0\BackEnd.csproj.Up2Date
+D:\KLA\C#.NET\InventoryManagementApp\BackEnd\obj\Debug\net8.0\BackEnd.sourcelink.json

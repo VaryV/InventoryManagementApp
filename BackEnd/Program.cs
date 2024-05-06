@@ -2,6 +2,8 @@ using System.Numerics;
 using Microsoft.AspNetCore.Http.HttpResults;
 using MySql.Data.MySqlClient;
 using Mysqlx;
+using System.Collections.Generic;
+using Org.BouncyCastle.Tls;
 
 string connectionString = "server=localhost;uid=root;pwd=;database=inventorymanagement";
 MySqlConnection conn = new MySqlConnection();
@@ -13,6 +15,8 @@ var app = builder.Build();
 var products = new List<Product>(); 
 var employees = new List<Employee>(); 
 var customers = new List<Customer>();
+var records = new List<InflowRecord>();
+
 
 app.MapGet("/list_emp", () => {
     conn.Open();
@@ -131,8 +135,54 @@ app.MapDelete("/del_prod/{id}", Results<NoContent, NotFound<string>> (int id) =>
         return TypedResults.NotFound("Error occurred. Please try again later.");
     }
 });
+// Inward Inventory List Today
+app.MapGet("/list_records_today", () => {
+    records.Clear();
+    DateTime date = DateTime.Now.Date;
+    string UseDate = $"{date.Year}-";
+    if (date.Month < 10){
+        UseDate += $"0{date.Month}-";
+    }
+    else{
+        UseDate += $"{date.Month}-";
+    }
+    if (date.Day < 10){
+        UseDate += $"0{date.Day}";
+    }
+    else{
+        UseDate += $"{date.Day}";
+    }
+    conn.Open();
+    string query = $"SELECT * FROM INWARD WHERE DATEAQUIRED = '{UseDate}'";
+    MySqlCommand cmd = new MySqlCommand(query, conn);
+    MySqlDataReader reader = cmd.ExecuteReader();
+    List<long> temp1 = new List<long>();
+    List<int> temp2 = new List<int>();
+    List<string> temp3 = new List<string>();
+    while(reader.Read()){
+        temp1.Add((long)reader["ProductID"]);
+        temp2.Add((int)reader["Qty"]);
+        temp3.Add($"{reader["TimeAquired"]}");
+    }
+    reader.Close();
+    Dictionary<ulong, string> prod_map = new Dictionary<ulong, string>();
+    string query1 = $"SELECT PRODUCTID, NAME FROM PRODUCTS";
+    MySqlCommand cmd1 = new MySqlCommand(query1, conn);
+    MySqlDataReader reader1 = cmd1.ExecuteReader();
+    while(reader1.Read()){
+        prod_map[(ulong)reader1["ProductID"]] = (string)reader1["Name"];
+    }
+    reader1.Close();
+    for(int i=0; i < temp1.Count(); i++){
+        InflowRecord t = new InflowRecord(temp1[i], prod_map[(ulong)temp1[i]], temp2[i], temp3[i]);
+        records.Add(t);
+    }
+    conn.Close();
+    return records;
+});
 
-// Inward Inventory
+
+// Inward Inventory Add
 app.MapPost("/inflow/{id}/{qty}", Results<Created<string>, NotFound<string>>(ulong id, int qty) => {
     conn.Open();
     List<ulong> pids = new List<ulong>();
@@ -171,4 +221,4 @@ public record Customer(ulong Id, string name, string phone, string mail, string 
 
 public record Product(ulong Id, string name, string desc, Decimal unitPrice, int qty, Decimal discount);
 
-public record InflowRecord(ulong Id, int qty);
+public record InflowRecord(long Id, string name, int qty, string time);

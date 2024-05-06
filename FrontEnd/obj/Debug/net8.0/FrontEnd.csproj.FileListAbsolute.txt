@@ -27,3 +27,4 @@ d:\KLA\C#.NET\InventoryManagementApp\FrontEnd\obj\Debug\net8.0\refint\FrontEnd.d
 d:\KLA\C#.NET\InventoryManagementApp\FrontEnd\obj\Debug\net8.0\FrontEnd.pdb
 d:\KLA\C#.NET\InventoryManagementApp\FrontEnd\obj\Debug\net8.0\FrontEnd.genruntimeconfig.cache
 d:\KLA\C#.NET\InventoryManagementApp\FrontEnd\obj\Debug\net8.0\ref\FrontEnd.dll
+D:\KLA\C#.NET\InventoryManagementApp\FrontEnd\obj\Debug\net8.0\FrontEnd.sourcelink.json

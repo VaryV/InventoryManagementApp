@@ -28,7 +28,8 @@ GET http://localhost:5038/list_emp
 ### PRODUCT MANAGEMENT
 
 GET http://localhost:5038/list_prods
-
+###
+GET http://localhost:5038/list_records_today
 ###
 POST http://localhost:5038/inflow/12/3
 ###

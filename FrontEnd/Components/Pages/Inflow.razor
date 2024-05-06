@@ -1,0 +1,73 @@
+@page "/inflow"
+@rendermode InteractiveServer
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+
+<style>
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+</style>
+
+<PageTitle>Inflow</PageTitle>
+
+<h1>Today's Product List</h1>
+
+<p></p>
+
+@if (records == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table" width="80%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>PRODUCT </th>
+                <th>STOCK QUANTITY AQUIRED </th>
+                <th>TIME </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in records)
+            {
+                <tr>
+                    <td>@record.Id</td>
+                    <td>@record.name</td>
+                    <td>@record.qty</td>
+                    <td>@record.time</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button @onclick="NavigateToRoute">Add Procured Item</button>
+
+}
+
+@code {
+    private Record[]? records;
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo("/add-today-inventory-item");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await ListProd();
+    }
+
+    private async Task ListProd()
+    {
+        records = await httpClient.GetFromJsonAsync<Record[]>("http://localhost:5038/list_records_today");
+    }
+
+    public class Record(){
+        public ulong Id { get; set; }
+        public string? name { get; set; }
+        public int qty { get; set; }
+        public string? time { get; set; }
+    }
+}
+
