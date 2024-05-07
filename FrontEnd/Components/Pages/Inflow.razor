@@ -16,9 +16,10 @@
 
 <p></p>
 
-@if (records == null)
+@if (records == null || records.Count() == 0)
 {
     <p><em>Loading...</em></p>
+    <button @onclick="NavigateToRoute">Add Procured Item</button>
 }
 else
 {

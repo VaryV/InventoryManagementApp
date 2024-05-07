@@ -9,67 +9,67 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FrontEnd
 build_property.RootNamespace = FrontEnd
-build_property.ProjectDir = D:\KLA\C#.NET\InventoryManagementApp\FrontEnd\
+build_property.ProjectDir = C:\C#.NET\InventoryManagementApp\FrontEnd\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\KLA\C#.NET\InventoryManagementApp\FrontEnd
+build_property.MSBuildProjectDirectory = C:\C#.NET\InventoryManagementApp\FrontEnd
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/App.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/App.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/AddCustomer.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/AddCustomer.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRDdXN0b21lci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/AddInventoryItemNew.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/AddInventoryItemNew.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRJbnZlbnRvcnlJdGVtTmV3LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/AddTodayInventoryItem.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/AddTodayInventoryItem.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRUb2RheUludmVudG9yeUl0ZW0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Customer.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Customer.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDdXN0b21lci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Error.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Home.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Inflow.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Inflow.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbmZsb3cucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Inventory.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Pages/Inventory.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbnZlbnRvcnkucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Routes.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Routes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Toast.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Toast.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xUb2FzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/_Imports.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Layout/MainLayout.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-y5qljaingz
 
-[D:/KLA/C\#.NET/InventoryManagementApp/FrontEnd/Components/Layout/NavMenu.razor]
+[C:/C\#.NET/InventoryManagementApp/FrontEnd/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-e8evo7atp8

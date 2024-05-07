@@ -1,23 +1,23 @@
 {
   "Files": [
     {
-      "Id": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\FrontEnd.bundle.scp.css",
+      "Id": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\FrontEnd.bundle.scp.css",
       "PackagePath": "staticwebassets\\FrontEnd.bundle.scp.css"
     },
     {
-      "Id": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\app.css",
+      "Id": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\favicon.png",
+      "Id": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {

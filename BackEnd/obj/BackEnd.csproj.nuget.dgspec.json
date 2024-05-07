@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\KLA\\C#.NET\\InventoryManagementApp\\BackEnd\\BackEnd.csproj": {}
+    "C:\\C#.NET\\InventoryManagementApp\\BackEnd\\BackEnd.csproj": {}
   },
   "projects": {
-    "D:\\KLA\\C#.NET\\InventoryManagementApp\\BackEnd\\BackEnd.csproj": {
+    "C:\\C#.NET\\InventoryManagementApp\\BackEnd\\BackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\KLA\\C#.NET\\InventoryManagementApp\\BackEnd\\BackEnd.csproj",
+        "projectUniqueName": "C:\\C#.NET\\InventoryManagementApp\\BackEnd\\BackEnd.csproj",
         "projectName": "BackEnd",
-        "projectPath": "D:\\KLA\\C#.NET\\InventoryManagementApp\\BackEnd\\BackEnd.csproj",
-        "packagesPath": "C:\\Users\\Varun\\.nuget\\packages\\",
-        "outputPath": "D:\\KLA\\C#.NET\\InventoryManagementApp\\BackEnd\\obj\\",
+        "projectPath": "C:\\C#.NET\\InventoryManagementApp\\BackEnd\\BackEnd.csproj",
+        "packagesPath": "C:\\Users\\vsuresh\\.nuget\\packages\\",
+        "outputPath": "C:\\C#.NET\\InventoryManagementApp\\BackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Varun\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\vsuresh\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

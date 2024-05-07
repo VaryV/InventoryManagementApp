@@ -43,12 +43,10 @@ app.MapGet("/list_cust/{phone}", (string phone) => {
     while(reader.Read()){
         Customer cust = new Customer((ulong)reader["CustID"], (string)reader["custName"], (string)reader["phone"], (string)reader["email"], (string)reader["address"]);
         if (phone.Equals("all")){
-            Console.WriteLine("all");
             customers.Add(cust);
         }
         else{
             if (cust.phone.Contains(phone)){
-                Console.WriteLine(cust.phone + " " + phone);
                 customers.Add(cust);
             }
         }
@@ -153,7 +151,7 @@ app.MapGet("/list_records_today", () => {
         UseDate += $"{date.Day}";
     }
     conn.Open();
-    string query = $"SELECT * FROM INWARD WHERE DATEAQUIRED = '{UseDate}'";
+    string query = $"SELECT * FROM INFLOW WHERE DATEAQUIRED = '{UseDate}'";
     MySqlCommand cmd = new MySqlCommand(query, conn);
     MySqlDataReader reader = cmd.ExecuteReader();
     List<long> temp1 = new List<long>();
@@ -194,7 +192,7 @@ app.MapPost("/inflow/{id}/{qty}", Results<Created<string>, NotFound<string>>(ulo
     }
     reader.Close();
     if (pids.Contains(id)){
-        string query1 = $"INSERT INTO INWARD (ProductID, Qty) VALUES ({id}, {qty})";
+        string query1 = $"INSERT INTO INFLOW (ProductID, Qty) VALUES ({id}, {qty})";
         MySqlCommand cmd1 = new MySqlCommand(query1, conn);
         int rowsAffected = cmd1.ExecuteNonQuery();
         conn.Close();

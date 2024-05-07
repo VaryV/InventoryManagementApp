@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Varun\\.nuget\\packages\\": {}
+    "C:\\Users\\vsuresh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\FrontEnd.csproj",
+      "projectUniqueName": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\FrontEnd.csproj",
       "projectName": "FrontEnd",
-      "projectPath": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\FrontEnd.csproj",
-      "packagesPath": "C:\\Users\\Varun\\.nuget\\packages\\",
-      "outputPath": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\",
+      "projectPath": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\FrontEnd.csproj",
+      "packagesPath": "C:\\Users\\vsuresh\\.nuget\\packages\\",
+      "outputPath": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Varun\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\vsuresh\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"

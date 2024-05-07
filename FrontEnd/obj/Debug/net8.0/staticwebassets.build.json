@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "K1AAyk71Al4WxnXUnMZ7YsnWH3m53j890LjSsm8yIbs=",
+  "Hash": "N+xDd7isbO2V9rCEagxjQ+FpxA2hQvVciE/JJegePtg=",
   "Source": "FrontEnd",
   "BasePath": "_content/FrontEnd",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "FrontEnd\\wwwroot",
       "Source": "FrontEnd",
-      "ContentRoot": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
+      "ContentRoot": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
       "BasePath": "_content/FrontEnd",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\bundle\\FrontEnd.styles.css",
+      "Identity": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\bundle\\FrontEnd.styles.css",
       "SourceId": "FrontEnd",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/FrontEnd",
       "RelativePath": "FrontEnd.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\bundle\\FrontEnd.styles.css"
+      "OriginalItemSpec": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\bundle\\FrontEnd.styles.css"
     },
     {
-      "Identity": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\FrontEnd.bundle.scp.css",
+      "Identity": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\FrontEnd.bundle.scp.css",
       "SourceId": "FrontEnd",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/FrontEnd",
       "RelativePath": "FrontEnd.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\FrontEnd.bundle.scp.css"
+      "OriginalItemSpec": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\FrontEnd.bundle.scp.css"
     },
     {
-      "Identity": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\app.css",
+      "Identity": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\app.css",
       "SourceId": "FrontEnd",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
+      "ContentRoot": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
       "BasePath": "_content/FrontEnd",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "FrontEnd",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
+      "ContentRoot": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
       "BasePath": "_content/FrontEnd",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "FrontEnd",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
+      "ContentRoot": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
       "BasePath": "_content/FrontEnd",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\favicon.png",
+      "Identity": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\favicon.png",
       "SourceId": "FrontEnd",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\KLA\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
+      "ContentRoot": "C:\\C#.NET\\InventoryManagementApp\\FrontEnd\\wwwroot\\",
       "BasePath": "_content/FrontEnd",
       "RelativePath": "favicon.png",
       "AssetKind": "All",
