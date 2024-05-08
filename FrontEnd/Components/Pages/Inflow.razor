@@ -12,9 +12,12 @@
 
 <PageTitle>Inflow</PageTitle>
 
-<h1>Today's Product List</h1>
+<h1>Inflow History</h1>
 
 <p></p>
+
+<input placeholder="Date 'yyyy-mm-dd'..." @bind="searchTerm"/>
+<button @onclick="ListProd">Filter By Date</button>
 
 @if (records == null || records.Count() == 0)
 {
@@ -29,6 +32,7 @@ else
                 <th>ID</th>
                 <th>PRODUCT </th>
                 <th>STOCK QUANTITY AQUIRED </th>
+                <th>DATE </th>
                 <th>TIME </th>
             </tr>
         </thead>
@@ -39,6 +43,7 @@ else
                     <td>@record.Id</td>
                     <td>@record.name</td>
                     <td>@record.qty</td>
+                    <td>@record.date</td>
                     <td>@record.time</td>
                 </tr>
             }
@@ -49,6 +54,7 @@ else
 }
 
 @code {
+    private string? searchTerm;
     private Record[]? records;
     private void NavigateToRoute()
     {
@@ -61,7 +67,10 @@ else
 
     private async Task ListProd()
     {
-        records = await httpClient.GetFromJsonAsync<Record[]>("http://localhost:5038/list_records_today");
+        if (string.IsNullOrEmpty(searchTerm) || searchTerm.Equals("all"))
+            records = await httpClient.GetFromJsonAsync<Record[]>("http://localhost:5038/list_records/all");
+        else
+            records = await httpClient.GetFromJsonAsync<Record[]>($"http://localhost:5038/list_records/{searchTerm}");
     }
 
     public class Record(){
@@ -69,6 +78,7 @@ else
         public string? name { get; set; }
         public int qty { get; set; }
         public string? time { get; set; }
+        public string? date {get; set; }
     }
 }
 

@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using Mysqlx;
 using System.Collections.Generic;
 using Org.BouncyCastle.Tls;
+using MySql.Data.Types;
 
 string connectionString = "server=localhost;uid=root;pwd=;database=inventorymanagement";
 MySqlConnection conn = new MySqlConnection();
@@ -133,34 +134,27 @@ app.MapDelete("/del_prod/{id}", Results<NoContent, NotFound<string>> (int id) =>
         return TypedResults.NotFound("Error occurred. Please try again later.");
     }
 });
-// Inward Inventory List Today
-app.MapGet("/list_records_today", () => {
+
+// Inward Inventory List
+app.MapGet("/list_records/{date}", (string date) => {
     records.Clear();
-    DateTime date = DateTime.Now.Date;
-    string UseDate = $"{date.Year}-";
-    if (date.Month < 10){
-        UseDate += $"0{date.Month}-";
-    }
-    else{
-        UseDate += $"{date.Month}-";
-    }
-    if (date.Day < 10){
-        UseDate += $"0{date.Day}";
-    }
-    else{
-        UseDate += $"{date.Day}";
-    }
     conn.Open();
-    string query = $"SELECT * FROM INFLOW WHERE DATEAQUIRED = '{UseDate}'";
+    string query;
+    if (date.Equals("all"))
+        query = $"SELECT * FROM INFLOW ORDER BY DateAquired DESC"; 
+    else
+        query = $"SELECT * FROM INFLOW WHERE DATEAQUIRED = '{date}' ORDER BY TIMEAQUIRED";
     MySqlCommand cmd = new MySqlCommand(query, conn);
     MySqlDataReader reader = cmd.ExecuteReader();
-    List<long> temp1 = new List<long>();
+    List<int> temp1 = new List<int>();
     List<int> temp2 = new List<int>();
     List<string> temp3 = new List<string>();
+    List<DateTime> temp4 = new List<DateTime>();
     while(reader.Read()){
-        temp1.Add((long)reader["ProductID"]);
+        temp1.Add((int)reader["ProductID"]);
         temp2.Add((int)reader["Qty"]);
         temp3.Add($"{reader["TimeAquired"]}");
+        temp4.Add((DateTime)reader["DateAquired"]);
     }
     reader.Close();
     Dictionary<ulong, string> prod_map = new Dictionary<ulong, string>();
@@ -172,7 +166,7 @@ app.MapGet("/list_records_today", () => {
     }
     reader1.Close();
     for(int i=0; i < temp1.Count(); i++){
-        InflowRecord t = new InflowRecord(temp1[i], prod_map[(ulong)temp1[i]], temp2[i], temp3[i]);
+        InflowRecord t = new InflowRecord(temp1[i], prod_map[(ulong)temp1[i]], temp2[i], temp3[i], temp4[i].ToString("yyyy-MM-dd"));
         records.Add(t);
     }
     conn.Close();
@@ -205,7 +199,7 @@ app.MapPost("/inflow/{id}/{qty}", Results<Created<string>, NotFound<string>>(ulo
     }
     else{
         conn.Close();
-        return TypedResults.NotFound("Error occurred. Please try again later.");
+        return TypedResults.NotFound("Invalid ProductID.");
     }
 });
 
@@ -213,10 +207,11 @@ app.MapPost("/inflow/{id}/{qty}", Results<Created<string>, NotFound<string>>(ulo
 
 app.Run();
 
+
 public record Employee(ulong Id, string name, string phone, string pwd);
 
 public record Customer(ulong Id, string name, string phone, string mail, string address);
 
 public record Product(ulong Id, string name, string desc, Decimal unitPrice, int qty, Decimal discount);
 
-public record InflowRecord(long Id, string name, int qty, string time);
+public record InflowRecord(long Id, string name, int qty, string time, string date);

@@ -29,7 +29,7 @@ GET http://localhost:5038/list_emp
 
 GET http://localhost:5038/list_prods
 ###
-GET http://localhost:5038/list_records_today
+GET http://localhost:5038/list_records/all
 ###
 POST http://localhost:5038/inflow/12/3
 ###
