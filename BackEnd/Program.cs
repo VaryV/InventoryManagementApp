@@ -5,6 +5,7 @@ using Mysqlx;
 using System.Collections.Generic;
 using Org.BouncyCastle.Tls;
 using MySql.Data.Types;
+using System.ComponentModel.DataAnnotations;
 
 string connectionString = "server=localhost;uid=root;pwd=;database=inventorymanagement";
 MySqlConnection conn = new MySqlConnection();
@@ -35,7 +36,7 @@ app.MapGet("/list_emp", () => {
 // ~~~~~~~~~~~~~~~~ CUSTOMER MANAGEMENT ~~~~~~~~~~~~~~~~
 
 // Retrieve customer based on phone number
-app.MapGet("/list_cust/{phone}", (string phone) => {
+app.MapGet("/list_cust/{id}/{name}/{phone}/{mail}/{address}", (ulong id, string name, string phone, string mail, string address) => {
     customers.Clear();
     conn.Open();
     string query = "SELECT * FROM CUSTOMERS";
@@ -43,12 +44,15 @@ app.MapGet("/list_cust/{phone}", (string phone) => {
     MySqlDataReader reader = cmd.ExecuteReader();
     while(reader.Read()){
         Customer cust = new Customer((ulong)reader["CustID"], (string)reader["custName"], (string)reader["phone"], (string)reader["email"], (string)reader["address"]);
-        if (phone.Equals("all")){
-            customers.Add(cust);
-        }
-        else{
-            if (cust.phone.Contains(phone)){
-                customers.Add(cust);
+        if (id == 0 || cust.Id == id){
+            if (name.Equals("all") || cust.name.ToLower().StartsWith(name.ToLower())){
+                if(phone.Equals("all") || cust.phone.StartsWith(phone)){
+                    if(mail.Equals("all") || cust.mail.ToLower().StartsWith(mail.ToLower())){
+                        if(address.Equals("all") || cust.address.ToLower().Contains(address.ToLower())){
+                            customers.Add(cust);
+                        }
+                    }
+                }
             }
         }
     }

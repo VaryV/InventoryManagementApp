@@ -1,6 +1,6 @@
 ### CUSTOMER MANAGEMENT
 
-GET http://localhost:5038/list_cust/all
+GET http://localhost:5038/list_cust/1/V/all/all/ee
 
 ###
 

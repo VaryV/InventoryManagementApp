@@ -21,18 +21,17 @@
 }
 else
 {
-    <input placeholder="Search Phone..." @bind="searchTerm"/>
-    <button @onclick="ListCust">Search Phone</button>
-
+    <p role="status">
     <table class="table" width="80%">
         <thead>
             <tr>
                 <th></th>
-                <th>ID</th>
-                <th>NAME </th>
-                <th>PHONE </th>
-                <th>EMAIL</th>
-                <th>ADDRESS</th>
+                <th><input type="text" placeholder="ID" @bind-value="searchID" @bind-value:event="oninput" @bind-value:after="ListCust"></th>
+                <th><input type="text" placeholder="Name" @bind-value="searchName" @bind-value:event="oninput" @bind-value:after="ListCust"></th>
+                <th><input type="text" placeholder="Phone" @bind-value="searchPhone" @bind-value:event="oninput" @bind-value:after="ListCust"> </th>
+                <th><input type="text" placeholder="Email" @bind-value="searchEmail" @bind-value:event="oninput" @bind-value:after="ListCust"></th>
+                <th><input type="text" placeholder="Address" @bind-value="searchAddress" @bind-value:event="oninput" @bind-value:after="ListCust"></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -45,17 +44,20 @@ else
                     <td>@customer.phone</td>
                     <td>@customer.mail</td>
                     <td>@customer.address</td>
+                    <td><a>Invoice History</a></td>
                 </tr>
             }
         </tbody>
     </table>
+    </p>
     <button @onclick="NavigateToRoute">Add Customer</button>
 
 }
 
 @code {
-    private string? searchTerm;
-    private Cust[]? customers;
+    private string? searchPhone, searchName, searchEmail, searchAddress;
+    private ulong searchID = 0;
+    private List<Cust>? customers;
     private void NavigateToRoute()
     {
         NavigationManager.NavigateTo("/add-customer");
@@ -67,14 +69,24 @@ else
 
     private async Task ListCust()
     {
-        if (string.IsNullOrEmpty(searchTerm) || searchTerm.Equals("all"))
-        {
-            customers = await httpClient.GetFromJsonAsync<Cust[]>("http://localhost:5038/list_cust/all");
-        }
+        string ln, lp, le, la;
+        if (string.IsNullOrEmpty(searchName))
+            ln = "all";
         else
-        {
-            customers = await httpClient.GetFromJsonAsync<Cust[]>($"http://localhost:5038/list_cust/{searchTerm}");
-        }
+            ln = searchName;
+        if (string.IsNullOrEmpty(searchPhone))
+            lp = "all";
+        else
+            lp = searchPhone;
+        if (string.IsNullOrEmpty(searchEmail))
+            le = "all";
+        else
+            le = searchEmail;
+        if (string.IsNullOrEmpty(searchAddress))
+            la = "all";
+        else
+            la = searchAddress;
+        customers = await httpClient.GetFromJsonAsync<List<Cust>>($"http://localhost:5038/list_cust/{searchID}/{ln}/{lp}/{le}/{la}");
     }
 
     private async Task DeleteCustomer(ulong id)

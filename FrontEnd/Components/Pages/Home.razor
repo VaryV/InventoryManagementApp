@@ -1,12 +1,13 @@
 ﻿@page "/"
+@rendermode InteractiveServer
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
 
-<PageTitle>Home</PageTitle>
+<style>
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+</style>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<Counter />
-
-
-<Weather />
+<PageTitle>Generate Invoice</PageTitle>
