@@ -4,17 +4,42 @@
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 <style>
-    tr:nth-child(even) {
+    h6 {
         background-color: #D6EEEE;
+        margin: 0 auto; /* Adjust as needed */
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+    }
+    .generate-invoice-button {
+        background-color: #D6EEEE; /* Green */
+        border: none;
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    .generate-invoice-button:hover {
+        background-color: #45a049; /* Darker Green */
     }
 </style>
 
-<PageTitle>Add Customer</PageTitle>
 
+<PageTitle>Add Customer</PageTitle>
+<div class="button-container">
+    <pre>
 <h1>Enter Customer Details</h1>
 <Toast Message="Fields cannot be empty" Level="Toast.ToastLevel.Warning" Visible="IsFToastVisible" />
 <Toast Message="Added Customer!" Level="Toast.ToastLevel.Success" Visible="IsSToastVisible" />
-<p></p>
 <form>
   <label>Name:</label><br>
   <input type="text" @bind="name" id="fname" name="fname"><br>
@@ -25,9 +50,8 @@
   <label>Address:</label><br>
   <input type="text" @bind="address" id="address" name="address"><br><br>
 </form>
-<button @onclick="NavigateToRoute">Back</button>
-<button @onclick="AddCust">Add Customer</button>
-
+<button class="generate-invoice-button" @onclick="NavigateToRoute">Back</button>    <button class="generate-invoice-button" @onclick="AddCust">Add Customer</button>
+</pre></div>
 @code {
     private bool IsSToastVisible { get; set; } = false;
     private bool IsFToastVisible { get; set; } = false;

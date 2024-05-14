@@ -5,38 +5,75 @@
 @attribute [StreamRendering]
 
 <style>
+    h6 {
+        background-color: #D6EEEE;
+        margin: 0 auto; /* Adjust as needed */
+    }
+    table {
+        margin: 0 auto;
+        border: 1px solid black;
+    }
+    td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+    }
+    th{
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+    }
     tr:nth-child(even) {
         background-color: #D6EEEE;
     }
+    .button-container {
+        display: flex;
+        justify-content: center;
+    }
+    .generate-invoice-button {
+        background-color: #D6EEEE; /* Green */
+        border: none;
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    .generate-invoice-button:hover {
+        background-color: #45a049; /* Darker Green */
+    }
 </style>
+
 
 <PageTitle>Inflow</PageTitle>
 
-<h1>Inflow History</h1>
-
+<div class="button-container">
+    <h1>Inflow History</h1>
+</div>
 <p></p>
 
-<input placeholder="Date 'yyyy-mm-dd'..." @bind="searchTerm"/>
-<button @onclick="ListProd">Filter By Date</button>
-
-@if (records == null || records.Count() == 0)
-{
-    <p><em>Loading...</em></p>
-    <button @onclick="NavigateToRoute">Add Procured Item</button>
-}
-else
-{
-    <table class="table" width="80%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>PRODUCT </th>
-                <th>STOCK QUANTITY AQUIRED </th>
-                <th>DATE </th>
-                <th>TIME </th>
-            </tr>
-        </thead>
-        <tbody>
+<table width="80%">
+    <thead>
+        <tr>
+            <th><input placeholder="ID" @bind-value="searchID" @bind-value:event="oninput" @bind-value:after="ListProd"/></th>
+            <th><input placeholder="NAME" @bind-value="searchName" @bind-value:event="oninput" @bind-value:after="ListProd"/> </th>
+            <th>STOCK QUANTITY AQUIRED </th>
+            <th><input placeholder="Date 'yyyy-mm-dd'..." @bind-value="searchDate" @bind-value:event="oninput" @bind-value:after="ListProd"/></th>
+            <th>TIME </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(records == null){
+            <p><em>Loading...</em></p>
+        }
+        else{
             @foreach (var record in records)
             {
                 <tr>
@@ -47,14 +84,18 @@ else
                     <td>@record.time</td>
                 </tr>
             }
-        </tbody>
-    </table>
-    <button @onclick="NavigateToRoute">Add Procured Item</button>
-
-}
-
+        }
+    </tbody>
+</table>
+<div class="button-container">
+    <pre>
+    <h6></h6>
+    <button class="generate-invoice-button" @onclick="NavigateToRoute">Add Procured Item</button>
+    </pre>
+</div>
 @code {
-    private string? searchTerm;
+    private string? searchDate, searchName;
+    private ulong searchID;
     private Record[]? records;
     private void NavigateToRoute()
     {
@@ -67,10 +108,16 @@ else
 
     private async Task ListProd()
     {
-        if (string.IsNullOrEmpty(searchTerm) || searchTerm.Equals("all"))
-            records = await httpClient.GetFromJsonAsync<Record[]>("http://localhost:5038/list_records/all");
+        string ln, ld;
+        if (string.IsNullOrEmpty(searchName))
+            ln = "all";
         else
-            records = await httpClient.GetFromJsonAsync<Record[]>($"http://localhost:5038/list_records/{searchTerm}");
+            ln = searchName;
+        if (string.IsNullOrEmpty(searchDate))
+            ld = "all";
+        else
+            ld = searchDate;
+        records = await httpClient.GetFromJsonAsync<Record[]>($"http://localhost:5038/list_records/{searchID}/{ln}/{ld}");
     }
 
     public class Record(){

@@ -27,9 +27,9 @@ GET http://localhost:5038/list_emp
 
 ### PRODUCT MANAGEMENT
 
-GET http://localhost:5038/list_prods
+GET http://localhost:5038/list_prods/0/all
 ###
-GET http://localhost:5038/list_records/all
+GET http://localhost:5038/list_records/0/all/2024-05-06
 ###
 POST http://localhost:5038/inflow/12/3
 ###
@@ -49,3 +49,12 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:5038/del_prod/11 HTTP/1.1
+
+
+
+POST http://localhost:5038/save_invoice
+Content-Type: application/json
+
+{
+
+}

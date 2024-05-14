@@ -1,0 +1,25 @@
+@page "/payment"
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject HttpClient httpClient
+
+
+@code{
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo("/generate_invoice");
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        // Create a timer with 3 seconds delay
+        var timer = new System.Threading.Timer((state) =>
+        {
+            // Navigate back to the previous page
+            NavigateToRoute();
+        }, null, 3000, System.Threading.Timeout.Infinite);
+    }
+}

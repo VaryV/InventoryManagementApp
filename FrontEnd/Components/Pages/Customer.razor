@@ -3,15 +3,60 @@
 @inject NavigationManager NavigationManager
 @attribute [StreamRendering]
 @rendermode InteractiveServer
+
 <style>
+    h6 {
+        background-color: #D6EEEE;
+        margin: 0 auto; /* Adjust as needed */
+    }
+    table {
+        margin: 0 auto;
+        border: 1px solid black;
+    }
+    td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+    }
+    th{
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+    }
     tr:nth-child(even) {
         background-color: #D6EEEE;
     }
+    .button-container {
+        display: flex;
+        justify-content: center;
+    }
+    .generate-invoice-button {
+        background-color: #D6EEEE; /* Green */
+        border: none;
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    .generate-invoice-button:hover {
+        background-color: #45a049; /* Darker Green */
+    }
 </style>
+
 
 <PageTitle>Customer List</PageTitle>
 
-<h1>Customer List</h1>
+<div class="button-container">
+    <h1>Customer List</h1>
+</div>
 
 <p></p>
 
@@ -21,16 +66,15 @@
 }
 else
 {
-    <p role="status">
-    <table class="table" width="80%">
+    <table width="80%">
         <thead>
             <tr>
-                <th></th>
                 <th><input type="text" placeholder="ID" @bind-value="searchID" @bind-value:event="oninput" @bind-value:after="ListCust"></th>
                 <th><input type="text" placeholder="Name" @bind-value="searchName" @bind-value:event="oninput" @bind-value:after="ListCust"></th>
                 <th><input type="text" placeholder="Phone" @bind-value="searchPhone" @bind-value:event="oninput" @bind-value:after="ListCust"> </th>
                 <th><input type="text" placeholder="Email" @bind-value="searchEmail" @bind-value:event="oninput" @bind-value:after="ListCust"></th>
                 <th><input type="text" placeholder="Address" @bind-value="searchAddress" @bind-value:event="oninput" @bind-value:after="ListCust"></th>
+                <th>INVOICE HISTORY</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,27 +82,30 @@ else
             @foreach (var customer in customers)
             {
                 <tr>
-                    <td><button @onclick="() => DeleteCustomer(customer.Id)">Delete</button></td>
                     <td>@customer.Id</td>
                     <td>@customer.name</td>
                     <td>@customer.phone</td>
                     <td>@customer.mail</td>
                     <td>@customer.address</td>
-                    <td><a>Invoice History</a></td>
+                    <td><button class="generate-invoice-button"><a href=@($"/invoice_hist/{customer.Id}")>History</a></button></td>
+                    <td><button class="generate-invoice-button" @onclick="() => DeleteCustomer(customer.Id)">Delete</button></td>
                 </tr>
             }
         </tbody>
     </table>
-    </p>
-    <button @onclick="NavigateToRoute">Add Customer</button>
-
+    <div class="button-container">
+        <pre>
+        <h6></h6>
+        <button class="generate-invoice-button" @onclick='() => NavigateToRoute("/add-customer")'>Add Customer</button>
+        </pre>
+    </div>
 }
 
 @code {
     private string? searchPhone, searchName, searchEmail, searchAddress;
     private ulong searchID = 0;
     private List<Cust>? customers;
-    private void NavigateToRoute()
+    private void NavigateToRoute(string link)
     {
         NavigationManager.NavigateTo("/add-customer");
     }

@@ -1,0 +1,319 @@
+﻿@page "/generate_invoice"
+@rendermode InteractiveServer
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+
+<style>
+    h6 {
+        background-color: #D6EEEE;
+        margin: 0 auto; /* Adjust as needed */
+    }
+    table {
+        margin: 0 auto;
+        border: 1px solid black;
+    }
+    td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+    }
+    th{
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+    }
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+    }
+    .generate-invoice-button {
+        background-color: #D6EEEE; /* Green */
+        border: none;
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    .generate-invoice-button:hover {
+        background-color: #45a049; /* Darker Green */
+    }
+</style>
+
+<PageTitle>Generate Invoice</PageTitle>
+
+@if (editmode){   
+    <div class="button-container">
+        <pre>
+        <h1></h1>
+        <label for="cust">Choose Customer : </label> <select name="cust" @onchange="HandleSelectionCust">
+            @foreach(var cust in cname_list){
+                <option value="@cust">@cust</option>
+            }
+        </select>
+        <h1></h1>
+        </pre>
+    </div>
+}
+else{
+    <div class="button-container">
+        <pre>
+        <h4>Customer Information</h4>
+        <h6><strong>Customer ID:</strong> @curr_customer.Id</h6>
+        <h6><strong>Customer Name:</strong> @curr_customer.name</h6>
+        <h6><strong>Phone:</strong> @curr_customer.phone</h6>
+        </pre>
+    </div>
+}
+
+@if (invoice_list.Count() > 0){
+<table width="80%">
+    <tr style="border: 1px solid black;">
+        <th>ID </th>
+        <th>NAME </th>
+        <th>UNIT PRICE </th>
+        <th>QUANTITY PURCHASED </th>
+        <th>DISCOUNT </th>
+        <th>PRICE </th>
+    </tr>
+        @foreach(InvoiceRecord rec in invoice_list){
+            <tr>
+                <td>@rec.Id</td>
+                <td>@rec.name</td>
+                <td>@rec.uprice</td>
+                <td>
+                    @if (editmode){
+                    <pre>
+                    <button @onclick="() => DecreaseQuantity(rec)">-</button>    @rec.qty    <button @onclick="() => IncreaseQuantity(rec)">+</button>
+                    </pre>
+                    }
+                    else{
+                        @rec.qty
+                    }
+                </td>
+                <td>@rec.discount</td>
+                <td>@rec.price</td>
+            </tr>
+        }
+        <tr>
+            <th colspan="5" style="border: 1px solid black;">Total Price</th>
+            <td style="border: 1px solid black;">@TotalPrice</td>
+        </tr>
+</table>
+}
+
+@if (editmode){   
+    <div class="button-container">
+        <pre>
+        <h1></h1>
+        <label for="newid">Choose Product ID : </label> <select name="newid" @onchange="HandleSelection">
+            @foreach(var prod in pid_list){
+                <option value="@prod">@prod</option>
+            }
+        </select>
+
+        <button class="generate-invoice-button" @onclick="Generate_Invoice">Generate Invoice</button>
+        </pre>
+    </div>
+}
+else{
+    <div class="button-container">
+    <pre>
+    <h1></h1>
+    <button class="generate-invoice-button" @onclick="EditSet_Invoice">Edit Invoice</button>    <button class="generate-invoice-button" @onclick="Save_Invoice">Proceed to Payment</button>
+    </pre>
+    </div>
+}
+
+
+
+@code {
+    private bool editmode = true;
+    private Cust curr_customer = new Cust();
+    private Decimal TotalPrice = 0;
+    private ulong searchID = 0, selectedProductId, selectedCustID = 1;
+    private List<ulong> pid_list = new List<ulong>();
+    private List<string> cname_list = new List<string>();
+    private string? searchName = "all";
+    private Product_FIN[]? products;
+    private Cust[]? customers;
+    private List<InvoiceRecord> invoice_list = new List<InvoiceRecord>();
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo("/payment");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        invoice_list.Clear();
+        editmode = true;
+        await ListProd();
+        await ListCust();
+    }
+
+    private async Task ListCust(){
+        cname_list.Clear();
+        customers = await httpClient.GetFromJsonAsync<Cust[]>($"http://localhost:5038/list_cust/0/all/all/all/all");
+        if (string.IsNullOrEmpty(curr_customer.name)){
+            Console.WriteLine("Selecting customer 1 by defualt");
+        }
+        curr_customer = customers[0];
+        Console.WriteLine($"Current Customer Name : {curr_customer.name}");
+        if (customers != null){
+            foreach(Cust cust in customers){
+                if (cust.name != null){
+                    cname_list.Add(cust.name);
+                }
+            }
+        }
+    }
+
+    private void DecreaseQuantity(InvoiceRecord record)
+    {
+        if (record.qty > 1)
+        {
+            record.qty--;
+            // Recalculate the price or any other related logic
+            record.price = record.price - (record.uprice - (record.discount/100 * record.uprice));
+            TotalPrice = TotalPrice - (record.uprice - (record.discount/100 * record.uprice));
+        }
+        else{
+            pid_list.Add(record.Id);
+            pid_list.Sort();
+            TotalPrice = TotalPrice - (record.uprice - (record.discount/100 * record.uprice));
+            invoice_list.Remove(record);
+        }
+    }
+    private async void Save_Invoice()
+    {
+        InvoiceWrapped wi = new InvoiceWrapped();
+        wi.custID = curr_customer.Id;
+        wi.custName = curr_customer.name;
+        wi.phone = curr_customer.phone;
+        wi.userID = 1;
+        wi.UserName = "Varun Suresh";
+        wi.invoice_list = new List<InvoiceRecord>();
+        Console.WriteLine($"{wi.custID} {wi.custName}, {wi.phone}");
+        Console.WriteLine($"{wi.userID} {wi.UserName}");
+        foreach(InvoiceRecord rec in invoice_list){
+            Console.WriteLine($"{rec.Id} {rec.name} {rec.uprice} {rec.qty} {rec.discount} {rec.price}");
+            wi.invoice_list.Add(rec);
+        }
+          
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("http://localhost:5038/save_invoice", wi);
+        Console.WriteLine(response);
+        NavigateToRoute();
+    }
+    
+    private void EditSet_Invoice()
+    {
+        editmode = true;
+        // Logic to generate the invoice
+        // This could involve sending data to a backend server, processing it, and then potentially displaying the generated invoice to the user.
+    }
+
+    private void Generate_Invoice()
+    {
+        if (!string.IsNullOrEmpty(curr_customer.name) && invoice_list.Count() > 0){
+            editmode = false;
+        }// Logic to generate the invoice
+        // This could involve sending data to a backend server, processing it, and then potentially displaying the generated invoice to the user.
+    }
+    private void IncreaseQuantity(InvoiceRecord record)
+    {
+        record.qty++;
+        // Recalculate the price or any other related logic
+        record.price = record.price + record.uprice - (record.discount/100 * record.uprice);
+        TotalPrice = TotalPrice + (record.uprice - (record.discount/100 * record.uprice));
+    }
+
+    private void HandleSelectionCust(ChangeEventArgs e)
+    {
+        string name = (string)e.Value;
+        foreach(Cust cust in customers){
+            if (cust.name.Equals(name)){
+                curr_customer = cust;
+                Console.WriteLine($"{curr_customer.Id} : {curr_customer.name} {curr_customer.phone} {curr_customer.mail} {curr_customer.address}");
+            }
+        }
+    }
+    private void HandleSelection(ChangeEventArgs e)
+    {
+        selectedProductId = Convert.ToUInt64(e.Value);
+        if (products != null){
+            foreach(Product_FIN prod in products){
+                if (prod.Id == selectedProductId){
+                    InvoiceRecord record = new InvoiceRecord();
+                    record.Id = prod.Id;
+                    record.name = prod.name;
+                    record.uprice = prod.unitprice;
+                    record.qty = 1;
+                    record.discount = prod.discount;
+                    record.price = prod.unitprice - (prod.discount/100 * prod.unitprice);
+                    invoice_list.Add(record);
+                    TotalPrice = TotalPrice + record.price;
+                    pid_list.Remove(selectedProductId);
+                }
+            }
+        }
+    }
+    private async Task ListProd()
+    {
+        pid_list.Clear();
+        products = await httpClient.GetFromJsonAsync<Product_FIN[]>($"http://localhost:5038/list_prods/{searchID}/{searchName}");
+        if (products != null){
+            foreach(Product_FIN prod in products){
+                pid_list.Add(prod.Id);
+                Console.WriteLine($"{prod.Id} : {prod.name} {prod.unitprice} {prod.qty} {prod.discount}");
+            }
+        }
+    }
+
+    public class Product_FIN
+    {
+        public ulong Id { get; set; }
+        public string? name { get; set; }
+        public string? desc { get; set; }
+        public Decimal unitprice { get; set; }
+        public int qty { get; set; }
+        public Decimal discount { get; set; }
+    }
+
+    public class InvoiceRecord
+    {
+        public ulong Id {get; set; }
+        public string? name {get; set; }
+        public Decimal uprice {get; set; }
+        public int qty {get; set; }
+        public Decimal discount {get; set; }
+        public Decimal price {get; set; }
+    }
+
+    public class Cust
+    {
+        public ulong Id { get; set; }
+        public string? name { get; set; }
+        public string? phone { get; set; }
+        public string? mail { get; set; }
+        public string? address { get; set; }
+    }
+
+    public class InvoiceWrapped{
+        public ulong custID {get; set; }
+        public string? custName {get; set; }
+        public string? phone {get; set; }
+        public ulong userID {get; set; }
+        public string? UserName {get; set; }
+        public List<InvoiceRecord> invoice_list {get; set; } 
+    }
+}

@@ -1,0 +1,74 @@
+@page "/invoice_hist/{custID}"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+<style>
+    h6 {
+        background-color: #D6EEEE;
+        margin: 0 auto; /* Adjust as needed */
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+    }
+    .generate-invoice-button {
+        background-color: #D6EEEE; /* Green */
+        border: none;
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    .generate-invoice-button:hover {
+        background-color: #45a049; /* Darker Green */
+    }
+</style>
+
+<div class="button-container"><pre>
+    <h1>Customer Details:</h1>
+    <h4>    CID : @customer.Id</h4>
+    <h4>    NAME : @customer.name</h4>
+    <h4>    PHONE : @customer.phone</h4>
+    <h4>    E-MAIL : @customer.mail</h4>
+    <h4>    ADDRESS : @customer.address</h4>
+    <button class="generate-invoice-button" @onclick="() => NavigateToRoute()">BACK TO CUSTOMER LIST</button>
+
+</pre></div>
+
+
+@code{
+    [Parameter]
+    public string? custID {get; set; }
+    public Cust customer = new Cust();
+    public List<Cust>? temp;
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo("/customer");
+    }
+    protected override async Task OnInitializedAsync(){
+        temp = await httpClient.GetFromJsonAsync<List<Cust>>($"http://localhost:5038/list_cust/{custID}/all/all/all/all");
+        if (temp != null){
+            if (temp.Count() > 0){
+                customer = temp[0];
+            }
+        }
+    }
+        public class Cust
+    {
+        public ulong Id { get; set; }
+        public string? name { get; set; }
+        public string? phone { get; set; }
+        public string? mail { get; set; }
+        public string? address { get; set; }
+    }
+
+}

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Org.BouncyCastle.Tls;
 using MySql.Data.Types;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing.Printing;
 
 string connectionString = "server=localhost;uid=root;pwd=;database=inventorymanagement";
 MySqlConnection conn = new MySqlConnection();
@@ -95,7 +96,7 @@ app.MapDelete("/del_cust/{id}", Results<NoContent, NotFound<string>> (int id) =>
 
 // ~~~~~~~~~~~~~~~~ PRODUCT MANAGEMENT ~~~~~~~~~~~~~~~~
 // List All Products
-app.MapGet("/list_prods", () => {
+app.MapGet("/list_prods/{id}/{name}", (ulong id, string name) => {
     products.Clear();
     conn.Open();
     string query = "SELECT * FROM PRODUCTS";
@@ -103,7 +104,11 @@ app.MapGet("/list_prods", () => {
     MySqlDataReader reader = cmd.ExecuteReader();
     while(reader.Read()){
         Product prod = new Product((ulong)reader["ProductID"], (string)reader["name"], (string)reader["Description"], Convert.ToDecimal(reader["UnitPrice"]), (int)reader["StockQuantity"], Convert.ToDecimal(reader["Discount"]));
-        products.Add(prod);
+        if (id == 0 || prod.Id == id){
+            if (name.Equals("all") || prod.name.ToLower().Contains(name.ToLower())){
+                        products.Add(prod);
+            }
+        }
     }
     conn.Close();
     return products;
@@ -140,14 +145,11 @@ app.MapDelete("/del_prod/{id}", Results<NoContent, NotFound<string>> (int id) =>
 });
 
 // Inward Inventory List
-app.MapGet("/list_records/{date}", (string date) => {
+app.MapGet("/list_records/{id}/{name}/{date}", (ulong id, string name, string date) => {
     records.Clear();
     conn.Open();
     string query;
-    if (date.Equals("all"))
-        query = $"SELECT * FROM INFLOW ORDER BY DateAquired DESC"; 
-    else
-        query = $"SELECT * FROM INFLOW WHERE DATEAQUIRED = '{date}' ORDER BY TIMEAQUIRED";
+    query = $"SELECT * FROM INFLOW ORDER BY DateAquired DESC"; 
     MySqlCommand cmd = new MySqlCommand(query, conn);
     MySqlDataReader reader = cmd.ExecuteReader();
     List<int> temp1 = new List<int>();
@@ -171,7 +173,13 @@ app.MapGet("/list_records/{date}", (string date) => {
     reader1.Close();
     for(int i=0; i < temp1.Count(); i++){
         InflowRecord t = new InflowRecord(temp1[i], prod_map[(ulong)temp1[i]], temp2[i], temp3[i], temp4[i].ToString("yyyy-MM-dd"));
-        records.Add(t);
+        if (id == 0 || id == (ulong)t.Id){
+            if (name.Equals("all") || t.name.Contains(name)){
+                if (date.Equals("all") || t.date.StartsWith(date)){
+                    records.Add(t);
+                }
+            }
+        }
     }
     conn.Close();
     return records;
@@ -209,6 +217,38 @@ app.MapPost("/inflow/{id}/{qty}", Results<Created<string>, NotFound<string>>(ulo
 
 // ~~~~~~~~~~~~~~~~ PRODUCT MANAGEMENT ~~~~~~~~~~~~~~~~
 
+// ~~~~~~~~~~~~~~~~ INVOICE ~~~~~~~~~~~~~~~~
+app.MapPost("/save_invoice", Results<Created<string>, NotFound<string>> (InvoiceWrapped wi) => {
+    conn.Open();
+    int newinvoiceid=0;
+    string query = $"SELECT MAX(InvoiceNo) AS maxi FROM invoices";
+    MySqlCommand cmd = new MySqlCommand(query, conn);
+    MySqlDataReader reader = cmd.ExecuteReader();
+    if (reader.Read() && reader["maxi"] != DBNull.Value){
+        newinvoiceid = (int)reader["maxi"] + 1;
+    }
+    else{
+        newinvoiceid = 1;
+    }
+    reader.Close();
+    Console.WriteLine($"{wi.custID} {wi.custName} {wi.phone} {wi.userID} {wi.UserName}");
+    if(wi.invoice_list != null){
+        foreach(InvoiceRecord rec in wi.invoice_list){
+            string qry = $"INSERT INTO INVOICES (InvoiceNo, CustID, CustName, Mobile, UserID, Username, PID, PName, Qty, UnitPrice, Discount, Price) VALUES({newinvoiceid}, {wi.custID}, '{wi.custName}', '{wi.phone}', {wi.userID}, '{wi.UserName}', {rec.Id}, '{rec.name}', {rec.qty}, {rec.uprice}, {rec.discount}, {rec.price})";
+            Console.WriteLine(qry);
+            MySqlCommand cmmd = new MySqlCommand(qry, conn);
+            int rowsAffected = cmmd.ExecuteNonQuery();
+            Console.WriteLine($"{rowsAffected}");
+        }
+    }
+    else{
+        Console.WriteLine("Empty");
+    }
+    conn.Close();
+
+    return TypedResults.Created("Invoice saved.", $"{newinvoiceid}");
+});
+
 app.Run();
 
 
@@ -219,3 +259,7 @@ public record Customer(ulong Id, string name, string phone, string mail, string 
 public record Product(ulong Id, string name, string desc, Decimal unitPrice, int qty, Decimal discount);
 
 public record InflowRecord(long Id, string name, int qty, string time, string date);
+
+public record InvoiceRecord(ulong Id, string name, Decimal uprice, int qty, Decimal discount, Decimal price);
+
+public record InvoiceWrapped(ulong custID, string custName, string phone, ulong userID, string UserName, List<InvoiceRecord> invoice_list);
