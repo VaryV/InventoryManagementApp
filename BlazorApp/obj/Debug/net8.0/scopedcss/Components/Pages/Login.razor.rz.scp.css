@@ -1,0 +1,43 @@
+.login-container[b-1dfqxkzgeh] {
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+    .login-container h2[b-1dfqxkzgeh] {
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: cursive;
+    }
+
+.form-mine[b-1dfqxkzgeh] {
+    margin-bottom: 15px;
+}
+
+    .form-mine input[type="text"][b-1dfqxkzgeh],
+    .form-mine input[type="password"][b-1dfqxkzgeh] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-family: cursive;
+    }
+
+    .form-mine button[b-1dfqxkzgeh] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: cursive;
+    }
+
+        .form-mine button:hover[b-1dfqxkzgeh] {
+            background-color: #0056b3;
+        }

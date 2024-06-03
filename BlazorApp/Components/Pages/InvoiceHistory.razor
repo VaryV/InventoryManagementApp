@@ -1,0 +1,48 @@
+﻿@page "/invoice_hist/{custID}"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+
+<div class="button-container">
+    <pre>
+    <h1>Customer Details:</h1>
+    <h4>    CID : @customer.Id<br />    NAME : @customer.name<br />    PHONE : @customer.phone<br />    E-MAIL : @customer.mail<br />    ADDRESS : @customer.address</h4>
+</pre>
+</div>
+@if (invoices != null && invoices.Count() > 0)
+{
+    @foreach(InvoiceKey key in invoice_dict.Keys)
+    {
+        <h1></h1>
+        <h1></h1>
+        <table>
+            <caption>INVOICE N0 : @key.InvoiceNo<br />BILLED BY : @key.UserName<br />DATE : @key.Date    TIME : @key.Time</caption>
+            <tr>
+                <th>PRODUCT ID</th>
+                <th>PRODUCT NAME</th>
+                <th>QUANTITY</th>
+                <th>UNIT PRICE</th>
+                <th>DISCOUNT</th>
+                <th>PRICE</th>
+            </tr>
+            @foreach(ProductInvoice prod in invoice_dict[key])
+            {
+                <tr>
+                    <td>@prod.Id</td>
+                    <td>@prod.name</td>
+                    <td>@prod.qty</td>
+                    <td>@prod.uprice</td>
+                    <td>@prod.discount</td>
+                    <td>@prod.price</td>
+                </tr>
+            }
+        </table>
+        <h1></h1>
+        <h1></h1>
+    }
+}
+<div class="button-container">
+    <button class="generate-invoice-button" @onclick="() => NavigateToRoute()">BACK TO CUSTOMER LIST</button>
+</div>

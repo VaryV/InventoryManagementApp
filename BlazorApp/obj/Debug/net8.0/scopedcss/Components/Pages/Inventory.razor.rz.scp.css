@@ -1,0 +1,50 @@
+h6[b-00yv7gxon8] {
+    background-color: #D6EEEE;
+    margin: 0 auto; /* Adjust as needed */
+}
+
+table[b-00yv7gxon8] {
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+td[b-00yv7gxon8] {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+th[b-00yv7gxon8] {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+tr:nth-child(even)[b-00yv7gxon8] {
+    background-color: #D6EEEE;
+}
+
+.button-container[b-00yv7gxon8] {
+    display: flex;
+    justify-content: center;
+}
+
+.generate-invoice-button[b-00yv7gxon8] {
+    background-color: #D6EEEE; /* Green */
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+    .generate-invoice-button:hover[b-00yv7gxon8] {
+        background-color: #45a049; /* Darker Green */
+    }

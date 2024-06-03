@@ -1,0 +1,56 @@
+﻿@page "/inflow"
+@rendermode InteractiveServer
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@using BlazorApp.Data
+@inject UserContext user_context
+
+@if (user_context.UserName.Equals("none"))
+{
+    NavigationManager.NavigateTo("/login");
+}
+else{
+    <PageTitle>Inflow</PageTitle>
+
+    <div class="button-container">
+        <h1>Inflow History</h1>
+    </div>
+    <p></p>
+
+    <table width="80%">
+        <thead>
+            <tr>
+                <th><input placeholder="ID" @bind-value="searchID" @bind-value:event="oninput" @bind-value:after="ListProd" /></th>
+                <th><input placeholder="NAME" @bind-value="searchName" @bind-value:event="oninput" @bind-value:after="ListProd" /> </th>
+                <th>STOCK QUANTITY AQUIRED </th>
+                <th><input placeholder="Date 'yyyy-mm-dd'..." @bind-value="searchDate" @bind-value:event="oninput" @bind-value:after="ListProd" /></th>
+                <th>TIME </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (records == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                @foreach (var record in records)
+                {
+                    <tr>
+                        <td>@record.Id</td>
+                        <td>@record.name</td>
+                        <td>@record.qty</td>
+                        <td>@record.date</td>
+                        <td>@record.time</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="button-container">
+        <pre>
+        <h6></h6>
+        <button class="generate-invoice-button" @onclick="NavigateToRoute">Add Procured Item</button>
+        </pre>
+    </div>
+}

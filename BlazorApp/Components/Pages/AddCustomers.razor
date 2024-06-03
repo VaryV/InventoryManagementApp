@@ -1,0 +1,33 @@
+﻿@page "/add-customer"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject AlertService alert
+
+@using BlazorApp.Data
+@inject UserContext user_context
+
+@if (user_context.UserName.Equals("none"))
+{
+    NavigationManager.NavigateTo("/login");
+}
+else
+{
+    <PageTitle>Add Customer</PageTitle>
+    <div class="button-container">
+        <pre>
+    <h1>Enter Customer Details</h1>
+    <form>
+      <label>Name:</label><br>
+      <input type="text" @bind="name" id="fname" name="fname"><br>
+      <label>Phone:</label><br>
+      <input type="text" @bind="phone" id="phone" name="phone"><br>
+      <label>Mail:</label><br>
+      <input type="text" @bind="mail" id="mail" name="mail"><br>
+      <label>Address:</label><br>
+      <input type="text" @bind="address" id="address" name="address"><br><br>
+    </form>
+    <button class="generate-invoice-button" @onclick="NavigateToRoute">Back</button>    <button class="generate-invoice-button" @onclick="AddCust">Add Customer</button>
+    </pre></div>
+}

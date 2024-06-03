@@ -20,18 +20,36 @@ var employees = new List<Employee>();
 var customers = new List<Customer>();
 var records = new List<InflowRecord>();
 
-
-app.MapGet("/list_emp", () => {
+app.MapPost("/login", Results<Accepted<User>, NotFound<string>> (UserRecevied user) => {
     conn.Open();
-    string query = "SELECT * FROM EMPLOYEES";
+    string query = $"SELECT UserName, IsAdmin FROM users WHERE UserName='{user.usn}' and password='{user.pwd}'";
+    MySqlCommand cmd = new MySqlCommand(query, conn);
+    MySqlDataReader reader = cmd.ExecuteReader();
+    if (reader.Read()){
+        string name = (string)reader["UserName"];
+        bool isadmin = (bool)reader["isAdmin"];
+        User userret = new(name, isadmin);
+        conn.Close();
+        Console.WriteLine($"{userret.username} {userret.isadmin}");
+        return TypedResults.Accepted("Logged in successfully!", userret);
+    }
+    else{
+        conn.Close();
+        return TypedResults.NotFound("Incorrect username or password");
+    }
+});
+
+app.MapGet("/get_user/{userName}", (string userName) => {
+    conn.Open();
+    ulong uid = 0;
+    string query = $"SELECT UserID FROM USERS WHERE UserName='{userName}'";
     MySqlCommand cmd = new MySqlCommand(query, conn);
     MySqlDataReader reader = cmd.ExecuteReader();
     while(reader.Read()){
-        Employee emp = new Employee((ulong)reader["EmpID"], (string)reader["EmpName"], (string)reader["phone"], (string)reader["password"]);
-        employees.Add(emp);
+        uid = (ulong)reader["UserID"];
     }
     conn.Close();
-    return employees;
+    return uid;
 });
 
 // ~~~~~~~~~~~~~~~~ CUSTOMER MANAGEMENT ~~~~~~~~~~~~~~~~
@@ -249,6 +267,22 @@ app.MapPost("/save_invoice", Results<Created<string>, NotFound<string>> (Invoice
     return TypedResults.Created("Invoice saved.", $"{newinvoiceid}");
 });
 
+// ~~~~~~~~~~~~~~~~ INVOICE HISTORY ~~~~~~~~~~~~~~~~~~~~
+app.MapGet("get_invoices/{id}", (ulong id) => {
+    conn.Open();
+    string query;
+    query = $"SELECT * FROM INVOICES WHERE CustID = {id} ORDER BY InvoiceNo DESC"; 
+    MySqlCommand cmd = new MySqlCommand(query, conn);
+    MySqlDataReader reader = cmd.ExecuteReader();
+    List<InvoiceRet> invoice_ret = new List<InvoiceRet>();
+    while (reader.Read()){
+        InvoiceRet temp = new InvoiceRet((int)reader["InvoiceNo"], (int)reader["userID"], (string)reader["username"], ((DateTime)reader["Date"]).ToString("yyyy-MM-dd"), ((TimeSpan)reader["Time"]).ToString(@"hh\:mm\:ss"), (int)reader["pid"], (string)reader["pname"], (int)reader["qty"], (Decimal)reader["UnitPrice"], (Decimal)reader["discount"], (Decimal)reader["Price"]);
+        invoice_ret.Add(temp);
+    }
+    conn.Close();
+    return invoice_ret;
+});
+
 app.Run();
 
 
@@ -263,3 +297,7 @@ public record InflowRecord(long Id, string name, int qty, string time, string da
 public record InvoiceRecord(ulong Id, string name, Decimal uprice, int qty, Decimal discount, Decimal price);
 
 public record InvoiceWrapped(ulong custID, string custName, string phone, ulong userID, string UserName, List<InvoiceRecord> invoice_list);
+
+public record User(string username, bool isadmin);
+public record UserRecevied(string usn, string pwd);
+public record InvoiceRet(int InvoiceNo, int UserID, string UserName, string Date, string Time, int Id, string name, int qty, Decimal unitprice, Decimal discount, Decimal price);

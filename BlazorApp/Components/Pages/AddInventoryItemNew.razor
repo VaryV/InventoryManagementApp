@@ -1,0 +1,35 @@
+﻿@page "/add-new-inventory-item"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject AlertService alert
+@using BlazorApp.Data
+@inject UserContext user_context
+
+@if (user_context.UserName.Equals("none"))
+{
+    NavigationManager.NavigateTo("/login");
+}
+else
+{
+    <PageTitle>Add New Inventory Item</PageTitle>
+
+    <div class="button-container"><pre>
+            <h1>Enter Product Details</h1>
+            <form>
+                <label>Name:</label><br>
+                <input type="text" @bind="name" id="fname" name="fname"><br>
+                <label>Description:</label><br>
+                <input type="text" @bind="desc" id="phone" name="phone"><br>
+                <label>Unit Price:</label><br>
+                <input type="text" @bind="UnitPrice" id="mail" name="mail"><br>
+                <label>Quantity:</label><br>
+                <input type="text" @bind="Sqty" id="address" name="address"><br><br>
+                <label>Discount:</label><br>
+                <input type="text" @bind="disc" id="address" name="address"><br><br>
+            </form>
+            <button class="generate-invoice-button" @onclick="NavigateToRoute">Back</button>    <button class="generate-invoice-button" @onclick="AddNewItem">Add New Item</button>
+        </pre>
+    </div>
+}

@@ -1,0 +1,28 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using BlazorApp.Data
+@inject UserContext user_context
+@inject NavigationManager NavigationManager
+
+
+<PageTitle>Home</PageTitle>
+
+@if (user_context.UserName.Equals("none"))
+{
+    NavigationManager.NavigateTo("/login");
+}
+
+else{
+
+    <h1>Hello, @user_context.UserName !</h1>
+
+    @if (user_context.IsAdmin){
+        <h4>You are an ADMIN</h4>
+    }
+
+    else{
+        <h4>You are a NORMAL USER</h4>
+    }
+
+    <p>Welcome to your new app.</p>
+}

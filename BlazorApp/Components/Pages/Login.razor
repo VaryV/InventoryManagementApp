@@ -1,0 +1,26 @@
+﻿@page "/login"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@using BlazorApp.Data
+@inject UserContext user_context
+@inject AlertService alert
+@rendermode InteractiveServer
+
+<PageTitle>Login</PageTitle>
+
+<div style="display: flex; justify-content: center;">
+    <div class="login-container">
+        <h2>Login</h2>
+        <form>
+            <div class="form-mine">
+                <input @bind-value="UserName" placeholder="Username..." type="text" id="username" name="username" required>
+            </div>
+            <div class="form-mine">
+                <input @bind-value="Password" placeholder="Password..." type="password" id="password" name="password" required>
+            </div>
+            <div class="form-mine">
+                <button type="button" class="form-mine" @onclick="() => login()">LOGIN</button>
+            </div>
+        </form>
+    </div>
+</div>

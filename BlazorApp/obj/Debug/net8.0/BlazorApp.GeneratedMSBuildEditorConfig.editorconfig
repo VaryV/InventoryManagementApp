@@ -1,0 +1,87 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = BlazorApp
+build_property.RootNamespace = BlazorApp
+build_property.ProjectDir = C:\C#.NET\InventoryManagementApp\BlazorApp\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\C#.NET\InventoryManagementApp\BlazorApp
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/App.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/Error.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/Payment.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQYXltZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Routes.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-qgsvw684bo
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-g8o6n169oq
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/AddCustomers.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRDdXN0b21lcnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-aegyzb13nj
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/AddInventoryItemNew.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRJbnZlbnRvcnlJdGVtTmV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-r6tifdtdl6
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/AddTodayInventoryItem.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRUb2RheUludmVudG9yeUl0ZW0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ipmw3uknuw
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/Customers.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDdXN0b21lcnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-esleflh3hb
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/GenerateInvoice.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xHZW5lcmF0ZUludm9pY2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-3fqt5r4oc5
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/Inflow.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbmZsb3cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-9sahgqapch
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/Inventory.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbnZlbnRvcnkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-00yv7gxon8
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/InvoiceHistory.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbnZvaWNlSGlzdG9yeS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-sulahgtvnq
+
+[C:/C\#.NET/InventoryManagementApp/BlazorApp/Components/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-1dfqxkzgeh

@@ -1,0 +1,57 @@
+h6[b-sulahgtvnq] {
+    background-color: #D6EEEE;
+    margin: 0 auto; /* Adjust as needed */
+}
+
+table[b-sulahgtvnq] {
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+caption[b-sulahgtvnq] {
+    caption-side: top; /* Ensure the caption is above the table */
+    text-align: center; /* Center-align the caption */
+    font-weight: bold; /* Optional, to make the caption bold */
+    padding: 10px; /* Optional, add some padding */
+}
+
+td[b-sulahgtvnq] {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+th[b-sulahgtvnq] {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+tr:nth-child(even)[b-sulahgtvnq] {
+    background-color: #D6EEEE;
+}
+
+.button-container[b-sulahgtvnq] {
+    display: flex;
+    justify-content: center;
+}
+
+.generate-invoice-button[b-sulahgtvnq] {
+    background-color: #D6EEEE; /* Green */
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+    .generate-invoice-button:hover[b-sulahgtvnq] {
+        background-color: #45a049; /* Darker Green */
+    }

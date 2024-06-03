@@ -1,0 +1,107 @@
+﻿@page "/generate_invoice"
+@rendermode InteractiveServer
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@using BlazorApp.Data
+@inject UserContext user_context
+
+<PageTitle>Generate Invoice</PageTitle>
+
+@if (user_context.UserName.Equals("none"))
+{
+    NavigationManager.NavigateTo("/login");
+}
+else{
+    @if (editmode)
+    {
+        <div class="button-container">
+            <pre>
+            <h1></h1>
+            <label for="cust">Choose Customer : </label> <select name="cust" @onchange="HandleSelectionCust">
+                    @foreach (var cust in cname_list)
+                    {
+                <option value="@cust">@cust</option>
+                    }
+                </select>
+            <h1></h1>
+                </pre>
+        </div>
+    }
+    else
+    {
+        <div class="button-container">
+            <pre>
+            <h4>Customer Information</h4>
+            <h6><strong>Customer ID:</strong> @curr_customer.Id</h6>
+            <h6><strong>Customer Name:</strong> @curr_customer.name</h6>
+            <h6><strong>Phone:</strong> @curr_customer.phone</h6>
+                </pre>
+        </div>
+    }
+
+    @if (invoice_list.Count() > 0)
+    {
+        <table width="80%">
+            <tr style="border: 1px solid black;">
+                <th>ID </th>
+                <th>NAME </th>
+                <th>UNIT PRICE </th>
+                <th>QUANTITY PURCHASED </th>
+                <th>DISCOUNT </th>
+                <th>PRICE </th>
+            </tr>
+            @foreach (InvoiceRecord rec in invoice_list)
+            {
+                <tr>
+                    <td>@rec.Id</td>
+                    <td>@rec.name</td>
+                    <td>@rec.uprice</td>
+                    <td>
+                        @if (editmode)
+                        {
+                            <pre>
+                            <button @onclick="() => DecreaseQuantity(rec)">-</button>    @rec.qty    <button @onclick="() => IncreaseQuantity(rec)">+</button>
+                                    </pre>
+                        }
+                        else
+                        {
+                            @rec.qty
+                        }
+                    </td>
+                    <td>@rec.discount</td>
+                    <td>@rec.price</td>
+                </tr>
+            }
+            <tr>
+                <th colspan="5" style="border: 1px solid black;">Total Price</th>
+                <td style="border: 1px solid black;">@TotalPrice</td>
+            </tr>
+        </table>
+    }
+
+    @if (editmode)
+    {
+        <div class="button-container">
+            <pre>
+            <h1></h1>
+            <label for="newid">Choose Product ID : </label> <select name="newid" @onchange="HandleSelection">
+                    @foreach (var prod in pid_list)
+                    {
+                <option value="@prod">@prod</option>
+                    }
+                </select>
+
+            <button class="generate-invoice-button" @onclick="Generate_Invoice">Generate Invoice</button>
+                </pre>
+        </div>
+    }
+    else
+    {
+        <div class="button-container">
+            <pre>
+            <h1></h1>
+            <button class="generate-invoice-button" @onclick="EditSet_Invoice">Edit Invoice</button>    <button class="generate-invoice-button" @onclick="Save_Invoice">Proceed to Payment</button>
+            </pre>
+        </div>
+    }
+}

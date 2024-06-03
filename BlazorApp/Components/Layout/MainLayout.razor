@@ -1,0 +1,36 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@using BlazorApp.Data
+@inject UserContext user_context
+
+<div class="page">
+    <main>
+        @if (!NavigationManager.Uri.EndsWith("login"))
+        {
+            <div>
+                <div class="btn-box">
+                    <div class="left-buttons">
+                        <button><a href="/">HOME</a></button>
+                        <button><a href="/inventory">INVENTORY</a></button>
+                        <button><a href="/generate_invoice">GENERATE INVOICE</a></button>
+                        <button><a href="/inflow">RECORD INFLOW</a></button>
+                        <button><a href="/customers">CUSTOMERS</a></button>
+                    </div>
+                    <div class="logout-button">
+                        <button><a href="/login">Logout</a></button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
